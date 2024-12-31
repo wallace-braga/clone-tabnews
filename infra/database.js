@@ -1,6 +1,8 @@
 import { Client } from 'pg'
 import { version } from 'react'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 async function query(queryObject) {
   const client = new Client({
     host: process.env.POSTGRES_HOST,
@@ -8,6 +10,7 @@ async function query(queryObject) {
     user: process.env.POSTGRES_USER,
     database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
+    ssl: !isDev,
   })
 
   try {
